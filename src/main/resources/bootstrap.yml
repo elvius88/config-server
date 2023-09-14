@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: conf-server
+  cloud:
+    config:
+      server:
+        encrypt:
+          enabled: false
+        git:
+          uri: ${CONFIG_REPO_PATH}/config-repo
+          search-paths: '*'
+          skip-ssl-validation: true
+          strict-host-key-checking: false
+
+---
+spring:
+  profiles: dev
+
+
+---
+spring:
+  profiles: dev_docker
+
+encrypt:
+  key:
+  key-store:
+    alias: config-server-key
+    password: s3cr3t-k3y-st0r3 #no tiene mucha importancia, ya que con el key se realiza la enc
+    location: file:${CONFIG_SERVER_KEY_PATH:/run/secrets/config-server.jks}

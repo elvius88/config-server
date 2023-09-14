@@ -1,0 +1,20 @@
+server:
+  port: ${PORT:9180}
+
+#encrypt:
+#  key: pass it as Env var ex: ENCRYPT_KEY=xxxxx
+
+eureka:
+  instance:
+    preferIpAddress: true
+    lease-renewal-interval-in-seconds: 10
+    ip-address: ${DOCKER_HOST_IP:${hostIp}}
+    instance-id: ${spring.application.name}:${random.value}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registry-fetch-interval-seconds: 5  #cada 15 hara refresh de las instancias del discovery
+
+---
